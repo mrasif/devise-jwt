@@ -12,6 +12,16 @@ class Api::AuthController < Api::BaseController
     end
   end
 
+  def update_user
+    @user=User.find_by_email(params[:user][:email])
+    @user.name=params[:user][:name]
+    if @user.save
+      render json: {status: true, message: 'User updated !', user: @user}, status: 200
+    else
+      render json: {status: true, message: 'Failed to update !'}, status: 402
+    end
+  end
+
   def login
     user = User.find_for_database_authentication(email: params[:email])
     if user.valid_password?(params[:password])

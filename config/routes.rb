@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     post 'register.json' => 'auth#register'
     post 'login.json' => 'auth#login'
+    post 'update_user.json' => 'auth#update_user'
     post 'logout.json' => 'auth#logout'
     get 'home.json' => 'home#index'
   end
