@@ -11,8 +11,8 @@ curl -X POST \
 curl -X POST \
   http://localhost:3000/api/register.json \
   -H 'Content-Type: application/json' \
-  -d '{"user":{"email":"test@example.in","password":"12345678", "profile_attributes":{"name":"Your name",
-  "address":"Kolkata", "age":26}}}'
+  -d '{"user":{"email":"test@example.in","password":"12345678", "profile_attributes":
+  {"name":"Your name", "address":"Kolkata", "age":26}}}'
 ```
 ### User Details:
 ```
@@ -31,9 +31,7 @@ curl -X PATCH \
         "profile_attributes": {
             "name": "Your name",
             "age": 26,
-            "address": "Kolkata",
-            "created_at": "2018-04-05T05:00:40.430Z",
-            "updated_at": "2018-04-05T07:37:12.546Z"
+            "address": "Kolkata"
         }
     }
 }'
