@@ -31,9 +31,7 @@ curl -X PATCH \
         "profile_attributes": {
             "name": "Your name",
             "age": 26,
-            "address": "Kolkata",
-            "created_at": "2018-04-05T05:00:40.430Z",
-            "updated_at": "2018-04-05T07:37:12.546Z"
+            "address": "Kolkata"
         }
     }
 }'
