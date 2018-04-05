@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     post 'register.json' => 'auth#register'
     post 'login.json' => 'auth#login'
     post 'user.json' => 'auth#user'
-    post 'update_user.json' => 'auth#update_user'
+    patch 'update_user.json' => 'auth#update_user'
     post 'logout.json' => 'auth#logout'
     get 'notes.json' => 'notes#index'
     post 'notes.json' => 'notes#create'
