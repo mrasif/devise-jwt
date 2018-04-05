@@ -15,7 +15,7 @@ class Api::AuthController < Api::BaseController
   def user
     @user=current_user
     # render json: {status: true, message: 'User fetched !', user: @user.as_json(include:[:profile])}, status: :ok
-    render json: {status: true, message: 'User fetched !', user: {id: @user.id, email: @user.email, profile_attributes: @user.profile}}, status: :ok
+    render json: {status: true, message: 'User fetched !', user: {id: @user.id, email: @user.email, profile_attributes: {id: @user.profile.id, user_id: @user.profile.user_id, name: @user.profile.name, address: @user.profile.address, age: @user.profile.age, avtar_url: @user.profile.image.url}}}, status: :ok
   end
 
   def update_user
@@ -55,6 +55,6 @@ class Api::AuthController < Api::BaseController
     end
 
     def user_param
-      params.require(:user).permit(:email, :password, profile_attributes: [:name, :address, :age])
+      params.require(:user).permit(:email, :password, profile_attributes: [:image, :name, :address, :age])
     end
 end
