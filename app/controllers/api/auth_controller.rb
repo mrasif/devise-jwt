@@ -12,6 +12,12 @@ class Api::AuthController < Api::BaseController
     end
   end
 
+  def user
+    @user=current_user
+    # render json: {status: true, message: 'User fetched !', user: @user.as_json(include:[:profile])}, status: :ok
+    render json: {status: true, message: 'User fetched !', user: {id: @user.id, email: @user.email, profile_attributes: @user.profile}}, status: :ok
+  end
+
   def update_user
     @user=User.find_by_email(params[:user][:email])
     @user.name=params[:user][:name]
