@@ -47,6 +47,6 @@ class Api::AuthController < Api::BaseController
     end
 
     def user_param
-      params.require(:user).permit(:name, :email, :password)
+      params.require(:user).permit(:email, :password, profile_attributes: [:name, :address, :age])
     end
 end
