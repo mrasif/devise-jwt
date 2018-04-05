@@ -1,22 +1,25 @@
 # Note API Server
-
+### Login:
 ```
 curl -X POST \
   http://localhost:3000/api/login.json \
   -H 'Content-Type: application/json' \
   -d '{"email":"test@example.in","password":"12345678"}'
 ```
+### Registration:
 ```
 curl -X POST \
   http://localhost:3000/api/register.json \
   -H 'Content-Type: application/json' \
   -d '{"user":{"email":"test@example.in","password":"12345678", "profile_attributes":{"name":"Your name", "address":"Kolkata", "age":26}}}'
 ```
+### User Details:
 ```
 curl -X POST \
   http://localhost:3000/api/user.json \
   -H 'Authorization: <token>' \
 ```
+### Update User:
 ```
 curl -X PATCH \
   http://localhost:3000/api/update_user.json \
@@ -34,16 +37,19 @@ curl -X PATCH \
     }
 }'
 ```
+### Logout:
 ```
 curl -X POST \
   http://localhost:3000/api/logout.json \
   -H 'Authorization: <token>' \
 ```
+### Get Notes:
 ```
 curl -X GET \
   http://localhost:3000/api/notes.json \
   -H 'Authorization: <token>' \
 ```
+### Create Note:
 ```
 curl -X POST \
   http://localhost:3000/api/notes.json \
@@ -55,6 +61,7 @@ curl -X POST \
 	}
 }'
 ```
+### Update Note:
 ```
 curl -X PATCH \
   http://localhost:3000/api/notes.json \
@@ -67,6 +74,7 @@ curl -X PATCH \
 	}
 }'
 ```
+### Delete Note:
 ```
 curl -X DELETE \
   http://localhost:3000/api/notes.json \
