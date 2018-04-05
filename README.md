@@ -11,7 +11,8 @@ curl -X POST \
 curl -X POST \
   http://localhost:3000/api/register.json \
   -H 'Content-Type: application/json' \
-  -d '{"user":{"email":"test@example.in","password":"12345678", "profile_attributes":{"name":"Your name", "address":"Kolkata", "age":26}}}'
+  -d '{"user":{"email":"test@example.in","password":"12345678", "profile_attributes":{"name":"Your name",
+  "address":"Kolkata", "age":26}}}'
 ```
 ### User Details:
 ```
