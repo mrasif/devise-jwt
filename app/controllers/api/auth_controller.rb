@@ -8,7 +8,7 @@ class Api::AuthController < Api::BaseController
     if @user.save
       render json: {status: true, message: 'User registered !', user: @user}, status: 201
     else
-      render json: {status: true, message: 'Failed to register !'}, status: 402
+      render json: {status: false, message: 'Failed to register !'}, status: 402
     end
   end
 
@@ -18,7 +18,7 @@ class Api::AuthController < Api::BaseController
     if @user.save
       render json: {status: true, message: 'User updated !', user: @user}, status: 200
     else
-      render json: {status: true, message: 'Failed to update !'}, status: 402
+      render json: {status: false, message: 'Failed to update !'}, status: 402
     end
   end
 

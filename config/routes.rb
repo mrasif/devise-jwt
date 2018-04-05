@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     post 'update_user.json' => 'auth#update_user'
     post 'logout.json' => 'auth#logout'
     get 'home.json' => 'home#index'
+    get 'notes.json' => 'notes#index'
     post 'notes.json' => 'notes#create'
+    patch 'notes.json' => 'notes#update'
+    delete 'notes.json' => 'notes#destroy'
   end
 end
