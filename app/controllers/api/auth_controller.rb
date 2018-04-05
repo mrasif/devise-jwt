@@ -34,7 +34,7 @@ class Api::AuthController < Api::BaseController
     user = User.find_for_database_authentication(email: params[:email])
     if user.valid_password?(params[:password])
       session[:user_id]=user.id
-      render json: payload(user)
+      render json: payload(user), status: 200
     else
       render json: {errors: ['Invalid Username/Password']}, status: :unauthorized
     end
@@ -50,7 +50,7 @@ class Api::AuthController < Api::BaseController
       return nil unless user and user.id
       {
         auth_token: JWToken.encode({user_id: user.id}),
-        user: {id: user.id, email: user.email}
+        user: {id: user.id, email: user.email, profile_attributes: user.profile}
       }
     end
 
