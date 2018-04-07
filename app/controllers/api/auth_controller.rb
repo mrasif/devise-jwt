@@ -15,7 +15,8 @@ class Api::AuthController < Api::BaseController
   def user
     @user=current_user
     # render json: {status: true, message: 'User fetched !', user: @user.as_json(include:[:profile])}, status: :ok
-    render json: {status: true, message: 'User fetched !', user: {id: @user.id, email: @user.email, profile_attributes: {id: @user.profile.id, user_id: @user.profile.user_id, name: @user.profile.name, address: @user.profile.address, age: @user.profile.age, avtar_url: @user.profile.image.url}}}, status: :ok
+    # render json: {status: true, message: 'User fetched !', user: {id: @user.id, email: @user.email, profile_attributes: {id: @user.profile.id, user_id: @user.profile.user_id, name: @user.profile.name, address: @user.profile.address, age: @user.profile.age, avtar_url: @user.profile.image.url}}}, status: :ok
+    render json: @user, serializer: UserSerializer, status: 200
   end
 
   def update_user
@@ -50,7 +51,8 @@ class Api::AuthController < Api::BaseController
       return nil unless user and user.id
       {
         auth_token: JWToken.encode({user_id: user.id}),
-        user: {id: user.id, email: user.email, profile_attributes: user.profile}
+        # user: {id: user.id, email: user.email, profile_attributes: user.profile}
+        user: user, serializer: Api::UserSerializer
       }
     end
 

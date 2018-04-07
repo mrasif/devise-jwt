@@ -9,6 +9,7 @@ gem 'devise'
 gem 'jwt'
 gem 'pry-rails'
 gem 'paperclip'
+gem 'active_model_serializers'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
