@@ -4,6 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_one :profile
-  accepts_nested_attributes_for :profile
+  accepts_nested_attributes_for(:profile, update_only: true)
   has_many :notes
 end

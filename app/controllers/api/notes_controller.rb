@@ -3,7 +3,9 @@ class Api::NotesController < Api::BaseController
 
   def index
     @notes=current_user.notes
-    render json: {status: true, message: 'Note fetched !', notes: @notes}, status: 200
+    render json: {status: true, message: 'Note fetched !', notes: ActiveModelSerializers::SerializableResource.new(@notes, each_serializer: Api::NoteSerializer)}, status: 200
+    # render json: @notes, status: 200
+    # render_success(:ok,@notes,meta: {message: 'Note fetched !'})
   end
 
   def create
@@ -18,13 +20,13 @@ class Api::NotesController < Api::BaseController
 
   def update
     @note=current_user.notes.find_by_id(params[:note][:id])
-    if @note==nil
-      render json: {status: false, message: 'Note not found !'}, status: 404
-      return
-    end
-    @note.title=params[:note][:title]
-    @note.body=params[:note][:body]
-    if @note.save
+    # if @note==nil
+    #   render json: {status: false, message: 'Note not found !'}, status: 404
+    #   return
+    # end
+    # @note.title=params[:note][:title]
+    # @note.body=params[:note][:body]
+    if @note.update_attributes(note_params)
       render json: {status: true, message: 'Note updated !', note: @note}, status: 200
     else
       render json: {status: false, message: 'Failed to update note !'}, status: 402

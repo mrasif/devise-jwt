@@ -4,9 +4,9 @@ class Api::AuthController < Api::BaseController
   # before_action :authenticate_request!, only: [:logout]
 
   def register
-    @user=User.new(user_param)
+    @user=User.new(user_params)
     if @user.save
-      render json: {status: true, message: 'User registered !', user: {id: @user.id, email: @user.email, profile_attributes: @user.profile}}, status: 201
+      render json: {status: true, message: 'User registered !', user: Api::UserSerializer.new(@user)}, status: 201
     else
       render json: {status: false, message: 'Failed to register !'}, status: 402
     end
@@ -14,17 +14,14 @@ class Api::AuthController < Api::BaseController
 
   def user
     @user=current_user
-    # render json: {status: true, message: 'User fetched !', user: @user.as_json(include:[:profile])}, status: :ok
-    render json: {status: true, message: 'User fetched !', user: {id: @user.id, email: @user.email, profile_attributes: {id: @user.profile.id, user_id: @user.profile.user_id, name: @user.profile.name, address: @user.profile.address, age: @user.profile.age, avtar_url: @user.profile.image.url}}}, status: :ok
+    render json: @user, status: 200
   end
 
   def update_user
     @user=User.find_by_email(params[:user][:email])
-    @user.profile.name=params[:user][:profile_attributes][:name]
-    @user.profile.address=params[:user][:profile_attributes][:address]
-    @user.profile.age=params[:user][:profile_attributes][:age]
-    if @user.save
-      render json: {status: true, message: 'User updated !', user: {id: @user.id, email: @user.email, profile_attributes: @user.profile}}, status: 200
+    # binding.pry
+    if @user.update_attributes(user_params)
+      render json: {status: true, message: 'User updated !', user: Api::UserSerializer.new(@user)}, status: 200
     else
       render json: {status: false, message: 'Failed to update !'}, status: 402
     end
@@ -50,11 +47,13 @@ class Api::AuthController < Api::BaseController
       return nil unless user and user.id
       {
         auth_token: JWToken.encode({user_id: user.id}),
-        user: {id: user.id, email: user.email, profile_attributes: user.profile}
+        # user: {id: user.id, email: user.email, profile_attributes: user.profile}
+        # send user using serializer
+        user: Api::UserSerializer.new(user)
       }
     end
 
-    def user_param
+    def user_params
       params.require(:user).permit(:email, :password, profile_attributes: [:image, :name, :address, :age])
     end
 end
