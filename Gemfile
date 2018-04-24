@@ -10,6 +10,7 @@ gem 'jwt'
 gem 'pry-rails'
 gem 'paperclip'
 gem 'active_model_serializers'
+gem 'rack-cors'
 
 
 gem 'rails', '~> 5.1.6'

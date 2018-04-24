@@ -29,7 +29,7 @@ class Api::BaseController < ActionController::Base
 
     # Sets the @current_user with the user_id from payload
     def load_current_user!
-      binding.pry
+      # binding.pry
       @current_user = User.find_by(id: payload[0]['user_id'])
     end
 
