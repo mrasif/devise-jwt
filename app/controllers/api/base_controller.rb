@@ -22,7 +22,11 @@ class Api::BaseController < ActionController::Base
     def payload
       auth_header = request.headers['Authorization']
       token = auth_header.split(' ').last
-      JWToken.decode(token)
+      if Token.find_by_token(token)
+        JWToken.decode(token)
+      else
+        nil
+      end
     rescue
       nil
     end

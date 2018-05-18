@@ -37,7 +37,10 @@ class Api::AuthController < Api::BaseController
   end
 
   def logout
-    @user=current_user
+    user=current_user
+    auth_header = request.headers['Authorization']
+    token = auth_header.split(' ').last
+    user.tokens.find_by_token(token).delete
     render json: {status: true, message: 'Logout sucessfully !'}, status: :ok
   end
 
@@ -45,7 +48,11 @@ class Api::AuthController < Api::BaseController
     def payload_gen(user)
       if user.present?
         auth_token=JWToken.encode({user_id: user.id})
-        return {auth_token: auth_token, user: Api::UserSerializer.new(user)}
+        if user.tokens.create(token: auth_token)
+          return {auth_token: auth_token, user: Api::UserSerializer.new(user)}
+        else
+          return nil
+        end
       else
         return nil
       end
