@@ -43,13 +43,19 @@ class Api::AuthController < Api::BaseController
 
   private
     def payload_gen(user)
-      return nil unless user and user.id
-      {
-        auth_token: JWToken.encode({user_id: user.id}),
-        # user: {id: user.id, email: user.email, profile_attributes: user.profile}
-        # send user using serializer
-        user: Api::UserSerializer.new(user)
-      }
+      if user.present?
+        auth_token=JWToken.encode({user_id: user.id})
+        return {auth_token: auth_token, user: Api::UserSerializer.new(user)}
+      else
+        return nil
+      end
+      # return nil unless user and user.id
+      # {
+      #   auth_token: JWToken.encode({user_id: user.id}),
+      #   # user: {id: user.id, email: user.email, profile_attributes: user.profile}
+      #   # send user using serializer
+      #   user: Api::UserSerializer.new(user)
+      # }
     end
 
     def user_params
